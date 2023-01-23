@@ -9,10 +9,13 @@ const DefaultCharacters = () => {
   return (
     <div>
         {
-            characters.data?.map((char: any)=> {
+            characters && characters?.data?.map((char: any)=> {
                 return (
                     <div key={char.id}>
-                        <img className="max-w-xs" src={char.pictures[0]?.url}/>
+                        {
+                            char.pic === 'unavailable' ? null : 
+                            <img className="max-w-xs" src={char.pic}/>
+                        }
                         <h3>{char.name}</h3>
                     </div>
                 )
