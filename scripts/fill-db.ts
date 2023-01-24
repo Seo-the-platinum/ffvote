@@ -3,6 +3,7 @@ import { prisma }  from '../src/server/db'
 interface Character {
     id: string;
     name: string;
+    origin: string;
     pictures: [{ url: string}];
 }
 
@@ -26,6 +27,7 @@ const fillCharacters = async ()=> {
         id: char.id,
         name: char.name,
         pic: char.pictures[0] ? char.pictures[0].url : 'unavailable',
+        origin: char.origin,
         votes: 0,
     }))
     const creation = await prisma.character.createMany({
@@ -64,4 +66,24 @@ const backFill = async ()=> {
     await Promise.all([ fillCharacters(), fillGames(), fillMonsters()])
 }
 
-// backFill()
+const addOrigin = async ()=> {
+    const res = await fetch("https://www.moogleapi.com/api/v1/characters")
+    const chars = await res.json()
+
+    const charsOrigins = await Promise.all(chars.map( async (char: Character)=> {
+        if (char.pictures[0] !== undefined) {
+            const update = await prisma.character.update({
+                where: {id: char.id},
+                data: {
+                    origin: char.origin
+                }
+            })
+        }
+    }))   
+}
+
+const deleteRecords = async ()=> {
+    const toDelete = await prisma.character.deleteMany({
+        where: {origin: 'Final Fantasy BE'}
+    })
+}

@@ -13,6 +13,7 @@ datasource db {
 model Character {
     id String   @id @default(cuid())
     name String
+    origin String
     pic String
     votes Int
 }
