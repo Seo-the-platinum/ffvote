@@ -8,16 +8,16 @@ interface Game {
 }
 
 const DefaultGames = () => {
-  const games = api.ff.getGames.useQuery()
-  const { isLoading } = games
-
+  const { data: games, isLoading } = api.ff.getGames.useQuery()
+  console.log(games)
+  if (isLoading) return
   return (
     <div className='grid grid-cols-2 gap-x-8 mt-12 md:grid-cols-4'>
       {isLoading && <h3>Loading...</h3>}
-      {games && games?.data?.map((game: Game)=> {
+      {games && games.map((game: Game)=> {
         return (
           <div key={game.id}>
-            <img className='w-48 max-h-48 md:w-56 md:h-56 object-contain' src={game.pic}/>
+            <img className='w-48 max-h-48 md:w-56 md:h-56 object-contain' src={`${game.pic}`} alt='game cover'/>
             <div className='flex gap-4 justify-center'>
               <h3 className='text-slate-300'>{game.title}</h3>
               <button className='
