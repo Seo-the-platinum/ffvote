@@ -8,6 +8,22 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'jackfperryjr.github.io',
+        port: '',
+        pathname: '/moogleapi-images/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mooglestorage.blob.core.windows.net',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
+  },
   /* If trying out the experimental appDir, comment the i18n config out
    * @see https://github.com/vercel/next.js/issues/41980 */
   i18n: {
@@ -15,4 +31,5 @@ const config = {
     defaultLocale: "en",
   },
 };
+
 export default config;

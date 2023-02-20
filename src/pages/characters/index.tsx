@@ -1,7 +1,10 @@
-import { handleClientScriptLoad } from 'next/script';
 import React from 'react'
 import { api } from '../../utils/api'
-
+import type { GetStaticProps } from 'next'
+import { createProxySSGHelpers } from '@trpc/react-query/ssg'
+import { appRouter } from '../../server/api/root';
+import Image from 'next/image'
+import { createInnerTRPCContext } from '../../server/api/trpc'
 interface Character {
     id: string;
     name: string;
@@ -9,24 +12,35 @@ interface Character {
     origin: string;
 }
 
-const DefaultCharacters = () => {
-    const characters = api.ff.getCharacters.useQuery()
+interface Characters {
+    characters: Character[]
+}
+export const getStaticProps: GetStaticProps = async ()=> {
+    const ssg = createProxySSGHelpers({
+      router: appRouter,
+      ctx: createInnerTRPCContext({}),
+    });
+     const characters = await ssg.ff.getCharacters.fetch();
+     
+    return {
+      props: {
+        characters
+      },
+    };
+  }
+
+const DefaultCharacters = ({ characters }: Characters) => {
     const upVote = api.ff.incrementVote.useMutation()
-    
     const handleVote = (id: string)=> {
         upVote.mutate({id: id})
     }
-
-    const { isLoading } = characters
-    
   return (
     <div className='mt-14 max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
-        {isLoading &&  <h3 className='text-white text-2xl'>Loading...</h3>}
         {
-            characters && characters?.data?.map((char: Character)=> {
+            characters.map((char: Character)=> {
                 return (
                     <div className='flex flex-col gap-y-4' key={char.id}>
-                        <img className="w-24 h-24 md:w-48 md:h-48 object-contain" src={char.pic}/>
+                        <Image className="w-24 h-24 md:w-48 md:h-48 object-contain" alt='final fantasy character' width={200} height={200} src={char.pic}/>
                         <div className='flex gap-4'>
                             <div>
                                 <h3 className='text-slate-300'>{char.name}</h3>

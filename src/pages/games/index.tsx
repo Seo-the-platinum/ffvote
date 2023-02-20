@@ -1,23 +1,38 @@
 import React from 'react'
-import { api } from '../../utils/api'
-
+import Image from 'next/image'
+import type { GetStaticProps } from 'next'
+import { createProxySSGHelpers } from '@trpc/react-query/ssg'
+import { appRouter } from '../../server/api/root';
+import { createInnerTRPCContext } from '../../server/api/trpc'
 interface Game {
   id: string;
   title: string;
   pic: string;
 }
 
-const DefaultGames = () => {
-  const { data: games, isLoading } = api.ff.getGames.useQuery()
-  console.log(games)
-  if (isLoading) return
+interface Games {
+  games: Game[];
+}
+export const getStaticProps: GetStaticProps = async ()=> {
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: createInnerTRPCContext({}),
+  });
+   const games = await ssg.ff.getGames.fetch();
+  return {
+    props: {
+      games
+    },
+  };
+}
+
+const DefaultGames = ({games}: Games) => {
   return (
     <div className='grid grid-cols-2 gap-x-8 mt-12 md:grid-cols-4'>
-      {isLoading && <h3>Loading...</h3>}
       {games && games.map((game: Game)=> {
         return (
           <div key={game.id}>
-            <img className='w-48 max-h-48 md:w-56 md:h-56 object-contain' src={`${game.pic}`} alt='game cover'/>
+            <Image className='w-48 max-h-48 md:w-56 md:h-56 object-contain' width={200} height={200} src={`${game.pic}`} alt='game cover'/>
             <div className='flex gap-4 justify-center'>
               <h3 className='text-slate-300'>{game.title}</h3>
               <button className='

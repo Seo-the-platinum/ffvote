@@ -19,7 +19,7 @@ export const ffRouter = createTRPCRouter({
     incrementVote: publicProcedure
         .input(z.object({ id: z.string() }))
         .mutation(async ({input})=> {
-        const upVote = await prisma.character.update({
+        await prisma.character.update({
             where: {
                 id: input.id,
             },
