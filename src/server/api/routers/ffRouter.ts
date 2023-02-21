@@ -16,7 +16,7 @@ export const ffRouter = createTRPCRouter({
         })
         return data
     }),
-    incrementVote: publicProcedure
+    incrementCharacterVote: publicProcedure
         .input(z.object({ id: z.string() }))
         .mutation(async ({input})=> {
         await prisma.character.update({
@@ -28,8 +28,28 @@ export const ffRouter = createTRPCRouter({
             }
         })
     }),
+    incrementGamesVote: publicProcedure
+        .input(z.object({ id: z.string() }))
+        .mutation(async ({input})=> {
+        await prisma.game.update({
+            where: {
+                id: input.id,
+            },
+            data: {
+                votes: {increment: 1}
+            }
+        })
+    }),
     getGames: publicProcedure.query(async ()=> {
         const data = await prisma.game.findMany()
+        return data
+    }),
+    getGamesByVote: publicProcedure.query(async ()=> {
+        const data = await prisma.game.findMany({
+            orderBy: {
+                votes: "desc",
+            },
+        })
         return data
     }),
     getMonsters: publicProcedure.query(async ()=> {

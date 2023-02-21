@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async ()=> {
   }
 
 const DefaultCharacters = ({ characters }: Characters) => {
-    const upVote = api.ff.incrementVote.useMutation()
+    const upVote = api.ff.incrementCharacterVote.useMutation()
     const handleVote = (id: string)=> {
         upVote.mutate({id: id})
     }
