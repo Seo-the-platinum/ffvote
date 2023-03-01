@@ -26,8 +26,12 @@ const ResultList = ({ results }: Results) => {
       {
         results && results.map((result: Game | Character)=> {
           return (
-            <div className="bg-gradient-to-tr from-indigo-900 via-blue-800 to-indigo-900 border-2 border-slate-200 flex items-end gap-x-2 p-2 rounded-lg" key={result.id}>
-              <Image className='w-24 h-24 object-contain' src={result.pic} alt='Final Fantasy Character' width={200} height={100}/>
+            <div className="
+              bg-gradient-to-tr from-indigo-900 via-blue-800 to-indigo-900 border-2 
+              border-slate-200 flex flex-col md:flex-row md:items-end gap-x-2 p-2 rounded-lg md:self-center" key={result.id}>
+              <div className="flex self-center">
+                <Image className='w-24 h-24' src={result.pic} alt='Final Fantasy Character' width={200} height={100}/>
+              </div>
               <div className="flex items-end gap-x-8">
                 <div className='flex flex-col gap-y-4'>
                   <h1 className='text-slate-300 font-medium text-2xl'>{result.name ? result.name : result.title}</h1>
