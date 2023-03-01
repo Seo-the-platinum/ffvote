@@ -52,8 +52,22 @@ export const ffRouter = createTRPCRouter({
         })
         return data
     }),
-    getMonsters: publicProcedure.query(async ()=> {
-        const data = await prisma.monster.findMany()
+    getTopCharacters: publicProcedure.query(async ()=> {
+        const data = await prisma.character.findMany({
+            orderBy: {
+                votes: "desc",
+            },
+            take:10
+        })
+        return data
+    }),
+    getTopGames: publicProcedure.query(async ()=> {
+        const data = await prisma.game.findMany({
+            orderBy: {
+                votes: "desc",
+            },
+            take:5
+        })
         return data
     })
 })
