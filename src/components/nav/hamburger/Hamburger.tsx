@@ -8,12 +8,12 @@ const Hamburger = () => {
     setShow(prev=> !prev)
   }
   return (
-    <div className='transform-translate duration-500 ease-in-out' style={ !show ? {transform: 'translate(99vw)'} : {transform: 'translate(70%)'}}>
+    <div className={`${show ? 'translate-x-1/3 sm:translate-x-3/4' : 'translate-x-full'} transform-translate duration-500 ease-in-out`} >
       <div className='aboslute flex items-start'>
         <button className='absolute right-full' onClick={handleShow}>
-          <GiHamburgerMenu className='fill-green-500' size='2rem'/>
+          <GiHamburgerMenu className='fill-slate-200' size='2rem'/>
         </button>
-        <HamburgerMenu/>
+        <HamburgerMenu handleShow={handleShow}/>
       </div>
     </div>
   )

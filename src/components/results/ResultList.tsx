@@ -22,22 +22,27 @@ interface Results {
 
 const ResultList = ({ results }: Results) => {
   return (
-    <div className='flex flex-col gap-y-4 max-w-screen-xl mt-4'>
+    <div className='flex flex-col gap-y-8 max-w-screen-xl mt-4'>
       {
-        results && results.map((result: Game | Character)=> {
+        results && results.map((result: Game | Character, index)=> {
           return (
             <div className="
-              bg-gradient-to-tr from-indigo-900 via-blue-800 to-indigo-900 border-2 
-              border-slate-200 flex flex-col md:flex-row md:items-end gap-x-2 p-2 rounded-lg md:self-center" key={result.id}>
-              <div className="flex self-center">
-                <Image className='w-24 h-24' src={result.pic} alt='Final Fantasy Character' width={200} height={100}/>
-              </div>
-              <div className="flex items-end gap-x-8">
-                <div className='flex flex-col gap-y-4'>
-                  <h1 className='text-slate-300 font-medium text-2xl'>{result.name ? result.name : result.title}</h1>
-                  <h1 className='text-slate-300 font-medium text-2xl'>{result?.origin && result.origin}</h1>
+              bg-gradient-to-tr from-indigo-900 via-blue-800 to-indigo-900 border-2 gap-y-4 items-center md:items-end
+              border-slate-200 flex flex-col md:flex-row gap-x-2 p-2 rounded-lg md:self-center text-slate-200" key={result.id} id={result.id}>
+              <div className="flex flex-col items-center w-full">
+                <div className={`${index + 1 === 1 ? 'bg-amber-400' : index + 1 === 2 ? 'bg-slate-400' : index + 1 === 3 ? 'bg-amber-900' : 'bg-slate-300'} rounded-full w-14 h-14 flex justify-center items-center self-start`}>
+                  <h3 className='text-slate-900 text-3xl'>{index + 1}</h3>
                 </div>
-                <h1 className='text-slate-300 font-medium text-2xl'>Votes: {result.votes}</h1>
+                <div className="flex justify-center gap-10">
+                  <h3 className='font-medium text-lg'>{result.name ? result.name : result.title}</h3>
+                  <h1 className='font-medium text-lg'>Votes: {result.votes}</h1>
+                </div>
+                <Image className='w-36 h-46 self-center rounded' src={result.pic} alt={result.name ? 'Final Fantasy Character':'Final Fantasy Game'} width={200} height={100}/>
+              </div>
+              <div className="flex flex-col items-end gap-x-8">
+                <div className='flex flex-col gap-y-4'>
+                  <h1 className='font-medium text-lg'>{result?.origin && result.origin}</h1>
+                </div>
               </div>
             </div>
           )

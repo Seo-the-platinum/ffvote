@@ -7,7 +7,7 @@ const Navbar = () => {
   const windowWidth = ResizeHook()
 
   return (
-    <div className='bg-gradient-to-r from-[#010049] to-[#010049b1] h-10 md:flex md:justify-center px-2 w-full border-b-2 border-[#03033860] fixed md:overflow-hidden'>
+    <div className='md:bg-gradient-to-r from-[#010049] to-[#010049b1] h-10 md:flex md:justify-center w-full fixed md:overflow-hidden'>
       {
         windowWidth > 767 ?
         <div className='hidden md:flex gap-x-4 md:gap-x-8 justify-end w-10/12'>

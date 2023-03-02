@@ -5,7 +5,7 @@ const TopVotes = () => {
     const { data: topCharacters } = api.ff.getTopCharacters.useQuery()
     const { data: topGames } = api.ff.getTopGames.useQuery()
   return (
-    <div className='flex flex-col md:flex-row justify-between gap-10 px-10'>
+    <div className='flex flex-col md:flex-row justify-between gap-10 md:px-10 text-center'>
         <div className='flex flex-col'>
             <h3 className='text-lg text-white'>Top 10 Characters </h3>
             <ResultList results={topCharacters}/>

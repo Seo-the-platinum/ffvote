@@ -5,6 +5,8 @@ import { createProxySSGHelpers } from '@trpc/react-query/ssg'
 import { appRouter } from '../../server/api/root';
 import Image from 'next/image'
 import { createInnerTRPCContext } from '../../server/api/trpc'
+import { useRouter } from 'next/router'
+
 interface Character {
     id: string;
     name: string;
@@ -31,8 +33,10 @@ export const getStaticProps: GetStaticProps = async ()=> {
 
 const DefaultCharacters = ({ characters }: Characters) => {
     const upVote = api.ff.incrementCharacterVote.useMutation()
-    const handleVote = (id: string)=> {
+    const router = useRouter()
+    const handleVote = async (id: string)=> {
         upVote.mutate({id: id})
+        await router.push(`/results/characters#${id}`)
     }
   return (
     <div className='mt-14 max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
