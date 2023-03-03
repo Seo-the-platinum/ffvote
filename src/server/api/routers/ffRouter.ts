@@ -69,5 +69,13 @@ export const ffRouter = createTRPCRouter({
             take:5
         })
         return data
+    }),
+    getCharacter: publicProcedure.input(z.object({ name: z.string() })).query(async ({ input })=> {
+        const data = await prisma.character.findMany({
+            where: {
+                name: input.name,
+            }
+        })
+        return data
     })
 })

@@ -36,6 +36,7 @@ const DefaultCharacters = ({ characters }: Characters) => {
     const router = useRouter()
     const handleVote = async (id: string)=> {
         upVote.mutate({id: id})
+        //returning promise here, figure out how to set proper type to shutup typescript error
         await router.push(`/results/characters#${id}`)
     }
   return (
