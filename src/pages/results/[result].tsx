@@ -9,7 +9,7 @@ const Result = () => {
     const { data: results } = query.result === 'characters' ? api.ff.getCharactersByVote.useQuery() : api.ff.getGamesByVote.useQuery()
 
   return (
-    <div className='mt-14'>
+    <div className='mt-14 md:mt-20'>
         <ResultList results={results}/>
     </div>
   )

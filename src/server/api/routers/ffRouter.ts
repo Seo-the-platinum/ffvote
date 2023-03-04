@@ -27,6 +27,9 @@ export const ffRouter = createTRPCRouter({
                 votes: {increment: 1}
             }
         })
+        return {
+            id: input.id,
+        }
     }),
     incrementGamesVote: publicProcedure
         .input(z.object({ id: z.string() }))

@@ -3,7 +3,7 @@ import Head from "next/head";
 import TopVotes from "../components/topVotes/TopVotes";
 
 const Home: NextPage = () => {
-    
+    //make this ssg and pass data to topvotes component
   return (
     <>
       <Head>
@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center max-w-7xl pt-8 md:pt-20 mt-4">
-        <h1 className='text-white'>Final Fantasy Fanvote</h1>
+        <h1 className='text-white sm:text-2xl'>Final Fantasy Fanvote</h1>
         <TopVotes/>
       </main>
     </>

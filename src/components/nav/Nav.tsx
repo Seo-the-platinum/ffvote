@@ -8,7 +8,9 @@ const Navbar = () => {
   const windowWidth = ResizeHook()
 
   return (
-    <div className='bg-gradient-to-tr from-[#010049] via-[#010049eb] to-[#040263]
+    <div className='
+      drop-shadow-xl
+      bg-gradient-to-tr from-[#010049] via-[#010049eb] to-[#040263]
       flex justify-center fixed h-10 w-full gap-2
       md:h-20 md:flex-col-reverse md:pr-2 md:max-w-7xl md:items-end
       lg:gap-4 lg:justify-evenly lg:items-center lg:flex-row lg:h-14

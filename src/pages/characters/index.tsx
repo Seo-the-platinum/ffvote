@@ -6,7 +6,6 @@ import { appRouter } from '../../server/api/root';
 import Image from 'next/image'
 import { createInnerTRPCContext } from '../../server/api/trpc'
 import { useRouter } from 'next/router'
-
 interface Character {
     id: string;
     name: string;
@@ -32,11 +31,18 @@ export const getStaticProps: GetStaticProps = async ()=> {
   }
 
 const DefaultCharacters = ({ characters }: Characters) => {
-    const upVote = api.ff.incrementCharacterVote.useMutation()
-    const router = useRouter()
+  const router = useRouter()
+  const utils = api.useContext()
+    const upVote = api.ff.incrementCharacterVote.useMutation({
+      onSuccess: async ({ id })=> {
+        await utils.ff.getCharactersByVote.invalidate()
+        await utils.ff.getTopCharacters.invalidate()
+        void router.push(`/results/characters#${id}`)
+      }
+    })
+    
     const handleVote = (id: string)=> {
         upVote.mutate({id: id})
-        void router.push(`/results/characters#${id}`)
     }
   return (
     <div className='mt-14 md:mt-20 max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 place-items-end'>

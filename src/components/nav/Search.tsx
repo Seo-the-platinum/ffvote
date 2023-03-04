@@ -55,7 +55,7 @@ const Search = () => {
     // comeback to figure out keydown ts error
     <div className='
       border-2 border-slate-800 relative rounded-xl flex items-center bg-slate-100
-      sm:w-2/4 md:w-2/6 lg:w-2/6 xl:w-1/4' 
+      sm:w-2/4 md:w-2/6 lg:w-2/6 xl:w-1/4'
       onKeyDown={handleKeyDown} tabIndex={1}>
       <input className='w-full rounded-tl-xl pl-2 rounded-bl-xl self-center focus:outline-none' type='text' maxLength={20} onChange={handleSearch} value={search}/>
       <BsSearch className='bg-slate-100 rounded-r-xl' size='1.25em'/>
@@ -67,7 +67,7 @@ const Search = () => {
             onClick={clearSearch} href={`/characters#${character.id}`} 
             key={character.id} 
             ref={index === focusedIndex ? resultContainer:null}>
-            <Image className='max-h-12 max-w-12' width={50} height={50} src={character.pic} alt={`${character.name} thumbnail`}/>
+            <Image className='h-12 w-12' width={50} height={50} src={character.pic} alt={`${character.name} thumbnail`}/>
             <h3>{character.name}</h3>
           </Link>)
         })}
