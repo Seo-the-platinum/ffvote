@@ -11,8 +11,8 @@ const Search = () => {
   const [ search,  setSearch ] = useState('')
   const { data: characters } = api.ff.getCharacter.useQuery({ name: `${search}`}, {enabled:!!search.length})
   const [focusedIndex, setFocusedIndex ] = useState(-1)
-  const resultContainer = useRef(null)
-  const handleSearch = (e:ChangeEvent)=> {
+  const resultContainer = useRef<HTMLAnchorElement|null>(null)
+  const handleSearch = (e:ChangeEvent<HTMLInputElement>)=> {
     setSearch(e.target.value)
   }
   const clearSearch = ()=> {
@@ -24,8 +24,7 @@ const Search = () => {
     resultContainer?.current?.scrollIntoView({block: 'center'})
   },[focusedIndex])
 
-  const handleKeyDown = async (e)=> {
-    console.log('keydown firing', focusedIndex)
+  const handleKeyDown =async (e:KeyboardEvent) => {
     const { key } = e
     let nextIndex = 0
     if (key === 'ArrowDown' && characters) {
@@ -42,9 +41,10 @@ const Search = () => {
     if (key === 'Enter' && characters) {
       const characterAtIndex = characters[focusedIndex]
       setSearch('')
-      await router.push(`/characters#${characterAtIndex.id}`)
+      if(characterAtIndex) {
+        await router.push(`/characters#${characterAtIndex.id}`)
     }
-
+  }
     if (key === 'Escape' && characters) {
       setSearch('')
     }
@@ -52,16 +52,21 @@ const Search = () => {
     setFocusedIndex(nextIndex)
   }
   return (
-    // had as absolute but checking relative if it works. I had md:static but I'm not sure why, it works with relative
+    // comeback to figure out keydown ts error
     <div className='
-      border-2 border-slate-800 relative rounded-xl flex items-center bg-white 
-      sm:w-2/4 md:w-2/4 lg:w-2/6 xl:w-1/4' 
+      border-2 border-slate-800 relative rounded-xl flex items-center bg-slate-100
+      sm:w-2/4 md:w-2/6 lg:w-2/6 xl:w-1/4' 
       onKeyDown={handleKeyDown} tabIndex={1}>
       <input className='w-full rounded-tl-xl pl-2 rounded-bl-xl self-center focus:outline-none' type='text' maxLength={20} onChange={handleSearch} value={search}/>
-      <BsSearch className='bg-white rounded-r-xl' size='1.25em'/>
-      <div className='bg-white rounded flex flex-col max-h-60 absolute top-full overflow-y-auto min-w-full'>
+      <BsSearch className='bg-slate-100 rounded-r-xl' size='1.25em'/>
+      <div className='bg-slate-100 rounded flex flex-col max-h-60 absolute top-full overflow-y-auto min-w-full'>
         {characters?.map((character, index)=> {
-          return (<Link className={`${index === focusedIndex ? 'border-2 border-cyan-600' : 'border-0'} flex gap-4 items-center`} onClick={clearSearch} href={`/characters#${character.id}`} key={character.id} ref={index === focusedIndex ? resultContainer:null}>
+          return (
+          <Link 
+            className={`${index === focusedIndex ? 'border-2 border-cyan-600 bg-slate-300' : 'border-0'} flex gap-4 items-center`}
+            onClick={clearSearch} href={`/characters#${character.id}`} 
+            key={character.id} 
+            ref={index === focusedIndex ? resultContainer:null}>
             <Image className='max-h-12 max-w-12' width={50} height={50} src={character.pic} alt={`${character.name} thumbnail`}/>
             <h3>{character.name}</h3>
           </Link>)

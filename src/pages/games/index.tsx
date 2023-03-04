@@ -33,7 +33,7 @@ const DefaultGames = ({games}: Games) => {
     upVote.mutate({id: id})
   }
   return (
-    <div className='grid grid-cols-2 gap-x-8 mt-12 md:grid-cols-4'>
+    <div className='grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-8 mt-12 md:grid-cols-4'>
       {games && games.map((game: Game)=> {
         return (
           <div key={game.id}>
@@ -44,7 +44,7 @@ const DefaultGames = ({games}: Games) => {
                 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-125 hover:bg-teal-500 hover:text-white duration-300
                 bg-blue-900 
                 rounded-md
-                text-slate-300 px-1 md:px-3'
+                text-slate-300 p-3'
                 data-id={game.id}
                 onClick={()=>handleVote(game.id)}
                 >Vote</button>
