@@ -24,7 +24,7 @@ const Search = () => {
     resultContainer?.current?.scrollIntoView({block: 'center'})
   },[focusedIndex])
 
-  const handleKeyDown =async (e:KeyboardEvent) => {
+  const handleKeyDown = (e:React.KeyboardEvent<HTMLDivElement>) => {
     const { key } = e
     let nextIndex = 0
     if (key === 'ArrowDown' && characters) {
@@ -41,10 +41,12 @@ const Search = () => {
     if (key === 'Enter' && characters) {
       const characterAtIndex = characters[focusedIndex]
       setSearch('')
+
       if(characterAtIndex) {
-        await router.push(`/characters#${characterAtIndex.id}`)
+        return async()=> await router.push(`/characters#${characterAtIndex.id}`)
     }
-  }
+    }
+
     if (key === 'Escape' && characters) {
       setSearch('')
     }

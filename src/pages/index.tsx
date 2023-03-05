@@ -1,9 +1,34 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import TopVotes from "../components/topVotes/TopVotes";
+import type { GetServerSideProps } from 'next'
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { appRouter } from "../server/api/root";
+import { createInnerTRPCContext } from "../server/api/trpc";
 
-const Home: NextPage = () => {
+type Character = {
+  id: string;
+  name: string;
+  pic: string;
+  origin: string;
+  votes: number
+}
+
+type Game = {
+  id: string;
+  pic: string;
+  title: string;
+  votes: number;
+}
+
+interface Props {
+  topCharacters: Character[];
+  topGames: Game[];
+}
+
+const Home: NextPage<Props> = ({ topCharacters, topGames }) => {
     //make this ssg and pass data to topvotes component
+    console.log(topCharacters, topGames)
   return (
     <>
       <Head>
@@ -13,10 +38,26 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center max-w-7xl pt-8 md:pt-20 mt-4">
         <h1 className='text-white sm:text-2xl'>Final Fantasy Fanvote</h1>
-        <TopVotes/>
+        <TopVotes topCharacters={topCharacters} topGames={topGames}/>
       </main>
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ()=> {
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: createInnerTRPCContext({}),
+  });
+    const topCharacters = await ssg.ff.getTopCharacters.fetch();
+    const topGames = await ssg.ff.getTopGames.fetch()
+    
+  return {
+    props: {
+      topCharacters,
+      topGames
+    },
+  };
+}
 
 export default Home;

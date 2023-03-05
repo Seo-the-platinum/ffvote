@@ -1,9 +1,27 @@
 import React from 'react'
-import { api } from '../../utils/api'
 import ResultList from '../results/ResultList'
-const TopVotes = () => {
-    const { data: topCharacters } = api.ff.getTopCharacters.useQuery()
-    const { data: topGames } = api.ff.getTopGames.useQuery()
+
+type Character = {
+  id: string;
+  name: string;
+  pic: string;
+  origin: string;
+  votes: number
+}
+
+type Game = {
+  id: string;
+  pic: string;
+  title: string;
+  votes: number;
+}
+
+interface TopVotes {
+  topCharacters: Character[];
+  topGames: Game[];
+}
+
+const TopVotes = ({ topCharacters, topGames }: TopVotes) => {
   return (
     <div className='flex flex-col md:flex-row justify-between gap-10 md:px-10 text-center'>
         <div className='flex flex-col'>

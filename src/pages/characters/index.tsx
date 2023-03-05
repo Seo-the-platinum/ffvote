@@ -17,18 +17,18 @@ interface Characters {
     characters: Character[]
 }
 export const getStaticProps: GetStaticProps = async ()=> {
-    const ssg = createProxySSGHelpers({
-      router: appRouter,
-      ctx: createInnerTRPCContext({}),
-    });
-     const characters = await ssg.ff.getCharacters.fetch();
-     
-    return {
-      props: {
-        characters
-      },
-    };
-  }
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: createInnerTRPCContext({}),
+  });
+    const characters = await ssg.ff.getCharacters.fetch();
+    
+  return {
+    props: {
+      characters
+    },
+  };
+}
 
 const DefaultCharacters = ({ characters }: Characters) => {
   const router = useRouter()
