@@ -41,10 +41,11 @@ const Search = () => {
     if (key === 'Enter' && characters) {
       const characterAtIndex = characters[focusedIndex]
       setSearch('')
-
+      
       if(characterAtIndex) {
-        return async()=> await router.push(`/characters#${characterAtIndex.id}`)
+        return router.push(`/characters#${characterAtIndex.id}`)
     }
+
     }
 
     if (key === 'Escape' && characters) {
