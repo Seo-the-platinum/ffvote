@@ -59,7 +59,7 @@ const Search = () => {
     <div className='
       border-2 border-slate-800 relative rounded-xl flex items-center bg-slate-100
       sm:w-2/4 md:w-2/6 lg:w-2/6 xl:w-1/4'
-      onKeyDown={handleKeyDown} tabIndex={1}>
+      onKeyDown={(e)=>void handleKeyDown(e)} tabIndex={1}>
       <input className='w-full rounded-tl-xl pl-2 rounded-bl-xl self-center focus:outline-none' type='text' maxLength={20} onChange={handleSearch} value={search}/>
       <BsSearch className='bg-slate-100 rounded-r-xl' size='1.25em'/>
       <div className='bg-slate-100 rounded flex flex-col max-h-60 absolute top-full overflow-y-auto min-w-full'>
