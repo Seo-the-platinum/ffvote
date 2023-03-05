@@ -27,8 +27,6 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ topCharacters, topGames }) => {
-    //make this ssg and pass data to topvotes component
-    console.log(topCharacters, topGames)
   return (
     <>
       <Head>

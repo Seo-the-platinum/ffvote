@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState  } from 'react'
 import Link from 'next/link'
 import ResizeHook from '../../utils/hooks/ResizeHook'
 import Hamburger from './hamburger/Hamburger'
 import Search from './Search'
+import { useRouter } from 'next/router'
 
 const Navbar = () => {
+  const [ isMounted, setMounted ] = useState(false)
   const windowWidth = ResizeHook()
+  const { asPath } = useRouter()
+  useEffect(()=> {
+    setMounted(true)
+    if (windowWidth > 767) {
+      const allLinks = document.getElementsByTagName('a')
+      for (let i = 0; i < allLinks.length; i++) {
+        if (allLinks[i]?.id === asPath) {
+          allLinks[i]?.classList.add('underline', 'underline-offset-4')
+        } else {
+          allLinks[i]?.classList.remove('underline', 'underline-offset-4')
+        }
+      }
+    }
+  },[asPath])
 
+  if (!isMounted) return null
   return (
     <div className='
       drop-shadow-xl
@@ -19,11 +36,11 @@ const Navbar = () => {
         {
           windowWidth > 767 ?
           <div className='hidden md:flex justify-end gap-8'>
-            <Link className='text-slate-300 text-sm md:text-xl font-serif' href='/'> Home </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font-serif' href='/results/characters'> Character Results </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font-serif' href='/results/games'> Game Results </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font-serif' href='/characters'> Characters </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font-serif' href='/games'> Games </Link>
+            <Link className='text-slate-300 text-sm md:text-xl font-serif decoration-teal-600' id='/' href='/'> Home </Link>
+            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/results/characters' href='/results/characters'> Character Results </Link>
+            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/results/games' href='/results/games'> Game Results </Link>
+            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/characters' href='/characters'> Characters </Link>
+            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/games' href='/games'> Games </Link>
           </div> :
           <Hamburger/>
         }
