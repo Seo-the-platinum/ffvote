@@ -51,7 +51,7 @@ const ResultList = ({ results }: Results) => {
                   <h3 className='font-medium text-lg md:text-2xl'>{result.name ? result.name : result.title}</h3>
                   <h1 className='font-medium text-lg md:text-2xl'>Votes: {result.votes}</h1>
                 </div>
-                <Image className='w-36 h-36 sm:w-2/4 md:w-2/3 md:h-50 lg:h-60 self-center rounded' src={result.pic} alt={result.name ? 'Final Fantasy Character':'Final Fantasy Game'} width={200} height={100}/>
+                <Image priority className='w-36 h-36 sm:w-2/4 md:w-2/3 md:h-50 lg:h-60 self-center rounded' src={result.pic} alt={result.name ? 'Final Fantasy Character':'Final Fantasy Game'} width={200} height={100}/>
               </div>
               <div className="flex flex-col items-end gap-x-8 self-center">
                   <h1 className='font-medium text-lg md:text-2xl'>{result?.origin && result.origin}</h1>

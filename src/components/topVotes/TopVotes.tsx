@@ -1,6 +1,6 @@
 import React from 'react'
-import CharacterResultsList from '../results/characterResultsList'
-import GameResultsList from '../results/gameResultsList'
+import CharacterResultsList from '../results/CharacterResultsList'
+import GameResultsList from '../results/GameResultsList'
 
 type Character = {
   id: string;

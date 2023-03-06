@@ -51,7 +51,7 @@ const DefaultCharacters = ({ characters }: Characters) => {
         characters.map((char: Character)=> {
           return (
             <div className={`${path === char.id ? 'border-2 border-emerald-500 rounded' : ''} flex flex-col gap-y-4`} key={char.id} id={char.id}>
-              <Image className="w-24 h-24 md:w-48 md:h-48 object-contain" alt='final fantasy character' width={200} height={200} src={char.pic}/>
+              <Image priority className="w-24 h-24 md:w-48 md:h-48 object-contain" alt='final fantasy character' width={200} height={200} src={char.pic}/>
               <div className='flex gap-4'>
                 <div>
                   <h3 className='text-slate-300'>{char.name}</h3>

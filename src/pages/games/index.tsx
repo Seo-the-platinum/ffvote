@@ -44,7 +44,7 @@ const DefaultGames = ({games}: Games) => {
       {games && games.map((game: Game)=> {
         return (
           <div key={game.id}>
-            <Image className='w-56 h-56 md:w-48 md:h-56 object-contain' width={200} height={200} src={`${game.pic}`} alt='game cover'/>
+            <Image priority className='w-56 h-56 md:w-48 md:h-56 object-contain' width={200} height={200} src={`${game.pic}`} alt='game cover'/>
             <div className='flex gap-4 justify-center items-center'>
               <h3 className='text-slate-300'>{game.title}</h3>
               <button className='
