@@ -65,14 +65,17 @@ const Search = () => {
       <div className='bg-slate-100 rounded flex flex-col max-h-60 absolute top-full overflow-y-auto min-w-full'>
         {characters?.map((character, index)=> {
           return (
-          <Link 
-            className={`${index === focusedIndex ? 'border-2 border-cyan-600 bg-slate-300' : 'border-0'} flex gap-4 items-center`}
-            onClick={clearSearch} href={`/characters#${character.id}`} 
-            key={character.id} 
-            ref={index === focusedIndex ? resultContainer:null}>
-            <Image className='h-12 w-12' width={50} height={50} src={character.pic} alt={`${character.name} thumbnail`}/>
-            <h3>{character.name}</h3>
-          </Link>)
+          <div className={`${index === focusedIndex ? 'bg-gradient-to-br from-emerald-500 to-cyan-500': ''}`} key={character.id}>
+            <Link 
+              className= 'bg-slate-300 border-0 flex gap-4 items-center m-0.5'
+              onClick={clearSearch} href={`/characters#${character.id}`} 
+              key={character.id} 
+              ref={index === focusedIndex ? resultContainer:null}>
+              <Image className='h-12 w-12' width={50} height={50} src={character.pic} alt={`${character.name} thumbnail`}/>
+              <h3>{character.name}</h3>
+            </Link>
+          </div>
+          )
         })}
       </div>
     </div>

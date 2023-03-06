@@ -14,14 +14,14 @@ const Navbar = () => {
     if (windowWidth > 767) {
       const allLinks = document.getElementsByTagName('a')
       for (let i = 0; i < allLinks.length; i++) {
-        if (allLinks[i]?.id === asPath) {
-          allLinks[i]?.classList.add('underline', 'underline-offset-4')
+        if (allLinks[i]?.id === asPath.split('#')[0]) {
+          allLinks[i]?.classList.add('bg-[length:100%_2px]')
         } else {
-          allLinks[i]?.classList.remove('underline', 'underline-offset-4')
+          allLinks[i]?.classList.remove('bg-[length:100%_2px]')
         }
       }
     }
-  },[asPath])
+  },[windowWidth,asPath])
 
   if (!isMounted) return null
   return (
@@ -35,12 +35,41 @@ const Navbar = () => {
         <Search/>
         {
           windowWidth > 767 ?
-          <div className='hidden md:flex justify-end gap-8'>
-            <Link className='text-slate-300 text-sm md:text-xl font-serif decoration-teal-600' id='/' href='/'> Home </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/results/characters' href='/results/characters'> Character Results </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/results/games' href='/results/games'> Game Results </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/characters' href='/characters'> Characters </Link>
-            <Link className='text-slate-300 text-sm md:text-xl font- decoration-teal-600' id='/games' href='/games'> Games </Link>
+          <div className='hidden md:flex justify-end gap-8 font-serif'>
+            <Link className='
+              bg-gradient-to-r from-emerald-500 to-sky-500 bg-left-bottom bg-[length:0%_2px]
+              bg-no-repeat pb-2px transition-all delay-250 duration-300 ease-in-out hover:bg-[length:100%_2px]
+              text-slate-300 text-sm decoration-teal-600
+              md:text-xl' id='/' href='/'> 
+              Home 
+            </Link>
+            <Link className='
+              bg-gradient-to-r from-teal-500 to-cyan-500 bg-left-bottom bg-[length:0%_2px]
+              bg-no-repeat pb-2px transition-all delay-250 duration-300 ease-in-out hover:bg-[length:100%_2px]
+              text-slate-300 text-sm md:text-xl decoration-teal-600' 
+              id='/results/characters' href='/results/characters'>
+              Character Results </Link>
+            <Link className='
+              bg-gradient-to-r from-teal-500 to-cyan-500 bg-left-bottom bg-[length:0%_2px]
+              bg-no-repeat pb-2px transition-all delay-250 duration-300 ease-in-out hover:bg-[length:100%_2px]
+              text-slate-300 text-sm md:text-xl decoration-teal-600' 
+              id='/results/games' href='/results/games'>
+              Game Results
+            </Link>
+            <Link className='
+              bg-gradient-to-r from-teal-500 to-cyan-500 bg-left-bottom bg-[length:0%_2px]
+              bg-no-repeat pb-2px transition-all delay-250 duration-300 ease-in-out hover:bg-[length:100%_2px]
+              text-slate-300 text-sm md:text-xl decoration-teal-600' 
+              id='/characters' href='/characters'> 
+              Characters 
+            </Link>
+            <Link className='
+              bg-gradient-to-r from-teal-500 to-cyan-500 bg-left-bottom bg-[length:0%_2px]
+              bg-no-repeat pb-2px transition-all delay-250 duration-300 ease-in-out hover:bg-[length:100%_2px]
+              text-slate-300 text-sm md:text-xl decoration-teal-600' 
+              id='/games' href='/games'> 
+              Games 
+            </Link>
           </div> :
           <Hamburger/>
         }

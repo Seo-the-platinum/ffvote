@@ -31,7 +31,9 @@ const Result = ({ results }: Results) => {
     </div>
   )
 }
-
+//using server side rendering to get result data. I didn't use ssg or static site generation because
+//I felt that the results list would change fairly frequently. Once data is fetched, I pass the data to
+// the component so it is available before the component is mounted.
 export const getServerSideProps: GetServerSideProps = async (ctx)=> {
   const ssg = createProxySSGHelpers({
     router: appRouter,

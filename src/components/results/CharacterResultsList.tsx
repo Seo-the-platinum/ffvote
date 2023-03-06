@@ -1,38 +1,24 @@
 import React from 'react'
 import Image from 'next/image'
 
-interface Character {
-  id: string;
-  name: string;
-  pic: string;
-  origin: string;
-  votes: number;
-}
-
-interface Game {
+type Character = {
     id: string;
-    title: string;
+    name: string;
     pic: string;
+    origin: string;
     votes: number;
   }
-  
-interface Results {
-    results: Game[] | Character[] | undefined;
-  }
 
-interface Result {
-  id: string;
-  name?: string;
-  origin?: string;
-  pic: string;
-  title?:string;
-  votes: number;
+type Results = {
+    results: Character[];
 }
-const ResultList = ({ results }: Results) => {
+
+
+const CharacterResultsList = ({ results }: Results) => {
   return (
     <div className='flex flex-col gap-y-8 max-w-screen-xl mt-4'>
-      {
-        results && results.map((result: Result, index)=> {
+        {
+        results && results.map((result: Character, index)=> {
           return (
             <div className="
               bg-gradient-to-tr from-indigo-900 via-blue-800 to-indigo-900
@@ -48,10 +34,10 @@ const ResultList = ({ results }: Results) => {
                   <h3 className='text-slate-900 text-3xl'>{index + 1}</h3>
                 </div>
                 <div className="flex justify-center gap-10">
-                  <h3 className='font-medium text-lg md:text-2xl'>{result.name ? result.name : result.title}</h3>
+                  <h3 className='font-medium text-lg md:text-2xl'>{result.name}</h3>
                   <h1 className='font-medium text-lg md:text-2xl'>Votes: {result.votes}</h1>
                 </div>
-                <Image className='w-36 h-36 sm:w-2/4 md:w-2/3 md:h-50 lg:h-60 self-center rounded' src={result.pic} alt={result.name ? 'Final Fantasy Character':'Final Fantasy Game'} width={200} height={100}/>
+                <Image className='w-36 h-36 sm:w-2/4 self-center rounded' src={result.pic} alt={`portrait of ${result.name}`} width={200} height={100}/>
               </div>
               <div className="flex flex-col items-end gap-x-8 self-center">
                   <h1 className='font-medium text-lg md:text-2xl'>{result?.origin && result.origin}</h1>
@@ -59,9 +45,9 @@ const ResultList = ({ results }: Results) => {
             </div>
           )
         })
-      }
+      }    
     </div>
   )
 }
 
-export default ResultList
+export default CharacterResultsList

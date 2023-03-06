@@ -32,6 +32,7 @@ export const getStaticProps: GetStaticProps = async ()=> {
 
 const DefaultCharacters = ({ characters }: Characters) => {
   const router = useRouter()
+  const path = router.asPath.split('#')[1]
   const utils = api.useContext()
     const upVote = api.ff.incrementCharacterVote.useMutation({
       onSuccess: async ({ id })=> {
@@ -49,7 +50,7 @@ const DefaultCharacters = ({ characters }: Characters) => {
       {
         characters.map((char: Character)=> {
           return (
-            <div className='flex flex-col gap-y-4' key={char.id} id={char.id}>
+            <div className={`${path === char.id ? 'border-2 border-emerald-500 rounded' : ''} flex flex-col gap-y-4`} key={char.id} id={char.id}>
               <Image className="w-24 h-24 md:w-48 md:h-48 object-contain" alt='final fantasy character' width={200} height={200} src={char.pic}/>
               <div className='flex gap-4'>
                 <div>
