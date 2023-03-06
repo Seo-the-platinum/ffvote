@@ -23,7 +23,7 @@ The stack includes some of the following:
 ## ScreenShots
 ![Final Fantasy Fan Vote home page](public/screenshots/home.png)
 ![Final Fantasy Fan Vote characters page](public/screenshots/characters.png)
-![Final Fantasy Fan Vote games page](public/screenshots/games.png.)
+![Final Fantasy Fan Vote games page](public/screenshots/games.png)
 ![Final Fantasy Fan Vote characters results page](public/screenshots/charactersResults.png)
 ![Final Fantasy Fan Vote games results page](public/screenshots/gameResults.png)
 ![Final Fantasy Fan Vote responsiveness demonstrated](public/screenshots/mobile.png)
